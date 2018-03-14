@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { normalize } = require('path')
 const chokidar = require('chokidar')
 const throttle = require('lodash/throttle')
 // TODO: figure out why `reporter == undefined` for export.sourceNodes fn
@@ -9,10 +10,14 @@ const { GLOB } = require('./utils/get-settings')
 // Adapted from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-filesystem/src/gatsby-node.js
 const watchSettingsFiles = ({ boundActionCreators }, { path }) => {
   if (!path) {
-    reporter.panic('options.path must be specified .')
+    reporter.panic(`@raygesualdo/gatsby-plugin-settings
+      \`options.path\` must be specified.
+    `)
   }
   if (!fs.existsSync(path)) {
-    reporter.panic('options.path must exist.')
+    reporter.panic(`@raygesualdo/gatsby-plugin-settings
+      ${normalize(path)} must exist.
+    `)
   }
 
   const { createNode } = boundActionCreators
